@@ -33,3 +33,5 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+errors_and_solutions.md
