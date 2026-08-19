@@ -34,4 +34,7 @@ lerna-debug.log*
 *.sln
 *.sw?
 
+# Sensitive files
+file.txt
+
 errors_and_solutions.md
