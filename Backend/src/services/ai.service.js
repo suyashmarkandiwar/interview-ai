@@ -50,7 +50,10 @@ ${interviewReportSchemaString}`;
     try {
         const response = await groq.chat.completions.create({
             model: "qwen/qwen3.8-27b",
-            messages: [{ role: "user", content: prompt }],
+            messages: [
+                { role: "system", content: "You are a pure JSON generation machine. You MUST return ONLY valid JSON. No conversational text. No markdown blocks." },
+                { role: "user", content: prompt }
+            ],
             response_format: { type: "json_object" },
             temperature: 0.2
         });
@@ -80,7 +83,10 @@ You MUST return a pure JSON object exactly like this: { "html": "<your html here
     try {
         const response = await groq.chat.completions.create({
             model: "qwen/qwen3.8-27b",
-            messages: [{ role: "user", content: prompt }],
+            messages: [
+                { role: "system", content: "You are a pure JSON generation machine. You MUST return ONLY valid JSON. No conversational text. No markdown blocks." },
+                { role: "user", content: prompt }
+            ],
             response_format: { type: "json_object" },
             temperature: 0.2
         });
