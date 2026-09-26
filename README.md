@@ -6,6 +6,17 @@ It evaluates match scores, identifies skill gaps, formulates potential technical
 
 ---
 
+## ✨ Key Features
+
+- **🧠 AI-Powered Analysis**: Accurately compares your resume against real job descriptions using Google Gemini.
+- **📊 Match Scoring**: Get an instant percentage match to see where you stand.
+- **🛣️ Day-by-Day Roadmap**: A customized, actionable study plan that focuses strictly on your weak points.
+- **❓ Targeted Questions**: Practice with technical and behavioral questions (complete with interviewer intentions and ideal answers).
+- **📄 Auto-Generated Resumes**: Generate and instantly download an optimized, ATS-friendly PDF resume tailored directly to the job.
+- **🔒 Secure Authentication**: Full user account system with encrypted JWT HTTP-only cookies.
+
+---
+
 ## 🏗️ System Architecture
 
 This project is built using the **MERN Stack** (MongoDB, Express, React, Node.js) combined with **Google's Gemini AI**.
@@ -107,3 +118,11 @@ npm run dev
 
 ### 4. Open the App
 Navigate to `http://localhost:5173` in your browser. You can register a new account, upload a PDF/Word resume, paste a job description, and generate your customized interview roadmap!
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - feel free to use, modify, and distribute it as you see fit.
+
+*Built with ❤️ for developers preparing for their next big role.*
