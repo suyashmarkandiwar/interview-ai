@@ -66,12 +66,14 @@ export const useInterview = () => {
         let response = null
         try {
             const htmlString = await generateResumePdf({ interviewReportId })
+            // Inject a script to automatically trigger the print dialog
+            const htmlWithPrint = htmlString + "<script>window.onload = () => { setTimeout(() => window.print(), 500); }</script>";
             
             // Create a Blob from the HTML string and open it in a new tab
-            const blob = new Blob([htmlString], { type: 'text/html' })
+            const blob = new Blob([htmlWithPrint], { type: 'text/html' })
             const url = window.URL.createObjectURL(blob)
             
-            // Open the resume in a new tab, where the user can Ctrl+P to save as PDF
+            // Open the resume in a new tab, which will automatically ask to Save as PDF
             window.open(url, "_blank")
         }
         catch (error) {
