@@ -54,12 +54,19 @@ ${interviewReportSchemaString}`;
                 { role: "system", content: "You are a pure JSON generation machine. You MUST return ONLY valid JSON. No conversational text. No markdown blocks." },
                 { role: "user", content: prompt }
             ],
-            response_format: { type: "json_object" },
             temperature: 0.2
         });
 
-        console.log("Raw AI output:", response.choices[0].message.content);
-        return JSON.parse(response.choices[0].message.content);
+        let rawText = response.choices[0].message.content;
+        console.log("Raw AI output:", rawText);
+
+        rawText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
+        const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            rawText = jsonMatch[0];
+        }
+
+        return JSON.parse(rawText);
     } catch (err) {
         console.error("❌ Groq API Error:", err);
         throw err;
@@ -87,11 +94,22 @@ You MUST return a pure JSON object exactly like this: { "html": "<your html here
                 { role: "system", content: "You are a pure JSON generation machine. You MUST return ONLY valid JSON. No conversational text. No markdown blocks." },
                 { role: "user", content: prompt }
             ],
-            response_format: { type: "json_object" },
             temperature: 0.2
         });
 
-        const jsonContent = JSON.parse(response.choices[0].message.content);
+        let rawText = response.choices[0].message.content;
+        console.log("Raw Resume Output:", rawText);
+
+        // Remove markdown formatting if the model still added it
+        rawText = rawText.replace(/```json/g, "").replace(/```html/g, "").replace(/```/g, "").trim();
+
+        // Attempt to extract json object if there's conversational text
+        const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            rawText = jsonMatch[0];
+        }
+
+        const jsonContent = JSON.parse(rawText);
         return jsonContent.html;
     } catch (err) {
         console.error("❌ Groq API Error:", err);
