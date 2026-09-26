@@ -5,6 +5,15 @@ const api = axios.create({
     withCredentials: true
 })
 
+// Attach the token to every request automatically
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token")
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
 async function register({ username, email, password }) {
 
     try {
@@ -13,6 +22,10 @@ async function register({ username, email, password }) {
             email,
             password
         })
+        // Store the token in localStorage for cross-domain auth
+        if (res.data.token) {
+            localStorage.setItem("token", res.data.token)
+        }
         return res.data;
 
     } catch (err) {
@@ -27,6 +40,10 @@ async function login({ email, password }) {
             email,
             password
         })
+        // Store the token in localStorage for cross-domain auth
+        if (res.data.token) {
+            localStorage.setItem("token", res.data.token)
+        }
         return res.data;
 
     } catch (err) {
@@ -37,6 +54,8 @@ async function login({ email, password }) {
 async function logout() {
     try {
         const res = await api.get('/api/auth/logout')
+        // Remove token from localStorage
+        localStorage.removeItem("token")
         return res.data;
     } catch (err) {
         console.log(err);
