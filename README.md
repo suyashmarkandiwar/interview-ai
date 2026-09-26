@@ -118,11 +118,3 @@ npm run dev
 
 ### 4. Open the App
 Navigate to `http://localhost:5173` in your browser. You can register a new account, upload a PDF/Word resume, paste a job description, and generate your customized interview roadmap!
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License - feel free to use, modify, and distribute it as you see fit.
-
-*Built with ❤️ for developers preparing for their next big role.*
