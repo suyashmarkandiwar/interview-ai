@@ -66,8 +66,23 @@ export const useInterview = () => {
         let response = null
         try {
             const htmlString = await generateResumePdf({ interviewReportId })
-            // Inject a script to automatically trigger the print dialog
-            const htmlWithPrint = htmlString + "<script>window.onload = () => { setTimeout(() => window.print(), 500); }</script>";
+            // Inject a floating Print button and a script
+            const printScript = `
+                <style>
+                    @media print { .no-print { display: none !important; } }
+                    .print-btn {
+                        position: fixed; top: 20px; right: 20px; 
+                        background: #e11d48; color: white; border: none; 
+                        padding: 12px 24px; border-radius: 8px; 
+                        font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                        z-index: 9999; font-family: sans-serif; font-size: 16px;
+                    }
+                    .print-btn:hover { background: #be123c; }
+                </style>
+                <button class="no-print print-btn" onclick="window.print()">🖨️ Save as PDF</button>
+                <script>setTimeout(() => window.print(), 1000);</script>
+            `;
+            const htmlWithPrint = htmlString + printScript;
             
             // Create a Blob from the HTML string and open it in a new tab
             const blob = new Blob([htmlWithPrint], { type: 'text/html' })
