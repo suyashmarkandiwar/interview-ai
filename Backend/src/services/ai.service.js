@@ -1,6 +1,5 @@
 const { GoogleGenAI, Type } = require("@google/genai")
 const { z } = require("zod")
-const puppeteer = require("puppeteer")
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_API_KEY
@@ -116,7 +115,8 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
         console.error("Message:", err.message)
         console.error("Details:", JSON.stringify(err.errorDetails, null, 2))
         throw err
-    }}
+    }
+}
 
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
 
