@@ -36,5 +36,8 @@ lerna-debug.log*
 
 # Sensitive files
 file.txt
-
 errors_and_solutions.md
+
+# Documents
+*.docx
+~$*.docx
