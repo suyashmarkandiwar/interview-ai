@@ -2,6 +2,7 @@ import { getAllInterviewReports, generateInterviewReport, getInterviewReportById
 import { useContext, useEffect, useState } from "react"
 import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
+import html2pdf from "html2pdf.js"
 
 
 export const useInterview = () => {
@@ -66,30 +67,22 @@ export const useInterview = () => {
         let response = null
         try {
             const htmlString = await generateResumePdf({ interviewReportId })
-            // Inject a floating Print button and a script
-            const printScript = `
-                <style>
-                    @media print { .no-print { display: none !important; } }
-                    .print-btn {
-                        position: fixed; top: 20px; right: 20px; 
-                        background: #e11d48; color: white; border: none; 
-                        padding: 12px 24px; border-radius: 8px; 
-                        font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                        z-index: 9999; font-family: sans-serif; font-size: 16px;
-                    }
-                    .print-btn:hover { background: #be123c; }
-                </style>
-                <button class="no-print print-btn" onclick="window.print()">🖨️ Save as PDF</button>
-                <script>setTimeout(() => window.print(), 1000);</script>
-            `;
-            const htmlWithPrint = htmlString + printScript;
             
-            // Create a Blob from the HTML string and open it in a new tab
-            const blob = new Blob([htmlWithPrint], { type: 'text/html' })
-            const url = window.URL.createObjectURL(blob)
+            // Generate a true PDF directly in the browser and download it as a file
+            const opt = {
+                margin:       0.5,
+                filename:     'AI_Generated_Resume.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
             
-            // Open the resume in a new tab, which will automatically ask to Save as PDF
-            window.open(url, "_blank")
+            // Create a temporary element to hold the HTML
+            const element = document.createElement('div');
+            element.innerHTML = htmlString;
+            
+            await html2pdf().set(opt).from(element).save();
+            
         }
         catch (error) {
             console.log(error)
