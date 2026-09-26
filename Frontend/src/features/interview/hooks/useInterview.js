@@ -64,13 +64,14 @@ export const useInterview = () => {
         setIsDownloading(true)
         let response = null
         try {
-            response = await generateResumePdf({ interviewReportId })
-            const url = window.URL.createObjectURL(new Blob([ response ], { type: "application/pdf" }))
-            const link = document.createElement("a")
-            link.href = url
-            link.setAttribute("download", `resume_${interviewReportId}.pdf`)
-            document.body.appendChild(link)
-            link.click()
+            const htmlString = await generateResumePdf({ interviewReportId })
+            
+            // Create a Blob from the HTML string and open it in a new tab
+            const blob = new Blob([htmlString], { type: 'text/html' })
+            const url = window.URL.createObjectURL(blob)
+            
+            // Open the resume in a new tab, where the user can Ctrl+P to save as PDF
+            window.open(url, "_blank")
         }
         catch (error) {
             console.log(error)
