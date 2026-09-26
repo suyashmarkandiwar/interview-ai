@@ -22,6 +22,13 @@ app.use("/api/interview", interviewRouter);
 // Global error handler (Express 5 forwards async errors here)
 app.use((err, req, res, next) => {
     console.error("❌ Unhandled Error:", err)
+
+    if (err.status === 429) {
+        return res.status(429).json({
+            message: "Groq AI Rate Limit Reached! (8000 Tokens/Min limit on Qwen free tier). Please wait exactly 60 seconds before trying again."
+        })
+    }
+
     res.status(err.status || 500).json({
         message: err.message || "Internal Server Error",
         ...(process.env.NODE_ENV !== "production" && { stack: err.stack })

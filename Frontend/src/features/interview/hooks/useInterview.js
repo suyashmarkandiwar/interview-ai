@@ -24,6 +24,7 @@ export const useInterview = () => {
             setReport(response.interviewReport)
         } catch (error) {
             console.log(error)
+            alert(error.response?.data?.message || "Failed to generate Interview Plan. Please try again.")
         } finally {
             setLoading(false)
         }
@@ -75,6 +76,7 @@ export const useInterview = () => {
         }
         catch (error) {
             console.log(error)
+            alert(error.response?.data?.message || "Failed to generate Resume. Please try again.")
         } finally {
             setIsDownloading(false)
         }
