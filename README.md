@@ -1,19 +1,21 @@
 # GenAI Interview Preparation Platform
 
+**🔗 Live Demo:** [https://interview-ai-nine-xi.vercel.app](https://interview-ai-nine-xi.vercel.app)
+
 A full-stack, AI-powered interview preparation platform that analyzes a candidate's resume and a target job description to generate a highly customized, day-by-day interview preparation roadmap. 
 
-It evaluates match scores, identifies skill gaps, formulates potential technical and behavioral questions, and even allows users to export a tailored, ATS-friendly PDF resume via Puppeteer.
+It evaluates match scores, identifies skill gaps, formulates potential technical and behavioral questions, and even allows users to export a tailored, ATS-friendly resume via client-side printing.
 
 ---
 
 ## ✨ Key Features
 
-- **🧠 AI-Powered Analysis**: Accurately compares your resume against real job descriptions using Google Gemini.
+- **🧠 AI-Powered Analysis**: Accurately compares your resume against real job descriptions using the blazing-fast Groq API (Qwen model).
 - **📊 Match Scoring**: Get an instant percentage match to see where you stand.
 - **🛣️ Day-by-Day Roadmap**: A customized, actionable study plan that focuses strictly on your weak points.
 - **❓ Targeted Questions**: Practice with technical and behavioral questions (complete with interviewer intentions and ideal answers).
 - **📄 Auto-Generated Resumes**: Generate and instantly download an optimized, ATS-friendly PDF resume tailored directly to the job.
-- **🔒 Secure Authentication**: Full user account system with encrypted JWT HTTP-only cookies.
+- **🔒 Secure Authentication**: Full user account system with encrypted JWT Bearer tokens in localStorage.
 
 ---
 
@@ -30,13 +32,12 @@ This project is built using the **MERN Stack** (MongoDB, Express, React, Node.js
 - **Backend (Server)**:
   - **Framework**: Node.js & Express.js
   - **Database**: MongoDB (Mongoose for ODM)
-  - **Authentication**: JWT (JSON Web Tokens) stored in HTTP-only cookies
-  - **PDF Generation**: Puppeteer (Headless Chrome for HTML-to-PDF conversion)
+  - **Authentication**: JWT (JSON Web Tokens) Bearer Tokens
 
 - **AI Integration**:
-  - **Provider**: Google GenAI SDK (`@google/genai`)
-  - **Model**: `gemini-3.5-flash`
-  - **Functionality**: Uses strict JSON schema enforcement to predictably extract match scores, questions, skill gaps, and preparation roadmaps.
+  - **Provider**: Groq SDK (`groq-sdk`)
+  - **Model**: `qwen/qwen3.8-27b`
+  - **Functionality**: Uses strict prompting to predictably extract match scores, questions, skill gaps, and preparation roadmaps.
 
 ---
 
