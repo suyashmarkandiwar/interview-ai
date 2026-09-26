@@ -70,13 +70,13 @@ GENAI-FULLSTACK-PROJECT/
 - [Google Gemini API Key](https://aistudio.google.com/)
 
 ### 1. Clone the repository
-\`\`\`bash
+```bash
 git clone <your-repository-url>
 cd GENAI-FULLSTACK-PROJECT
-\`\`\`
+```
 
 ### 2. Backend Setup
-\`\`\`bash
+```bash
 cd Backend
 
 # Install dependencies
@@ -91,11 +91,11 @@ npm install
 
 # Start the backend development server
 npm run dev
-\`\`\`
+```
 
 ### 3. Frontend Setup
 Open a new terminal window:
-\`\`\`bash
+```bash
 cd Frontend
 
 # Install dependencies
@@ -103,7 +103,7 @@ npm install
 
 # Start the frontend development server
 npm run dev
-\`\`\`
+```
 
 ### 4. Open the App
 Navigate to `http://localhost:5173` in your browser. You can register a new account, upload a PDF/Word resume, paste a job description, and generate your customized interview roadmap!
