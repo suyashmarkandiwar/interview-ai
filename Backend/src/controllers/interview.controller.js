@@ -13,22 +13,26 @@ async function generateInterViewReportController(req, res, next) {
         const path = require("path")
         const standardFontDataUrl = path.join(require.resolve("pdfjs-dist/package.json"), "../standard_fonts/")
 
-        const pdfParser = new pdfParse.PDFParse(Uint8Array.from(req.file.buffer), {
-            verbosityLevel: 0,
-            standardFontDataUrl
-        })
-        const resumeContent = await pdfParser.getText()
+        let resumeText = "";
+        if (req.file) {
+            const pdfParser = new pdfParse.PDFParse(Uint8Array.from(req.file.buffer), {
+                verbosityLevel: 0,
+                standardFontDataUrl
+            });
+            const resumeContent = await pdfParser.getText();
+            resumeText = resumeContent.text;
+        }
         const { selfDescription, jobDescription } = req.body
 
         const interViewReportByAi = await generateInterviewReport({
-            resume: resumeContent.text,
+            resume: resumeText,
             selfDescription,
             jobDescription
         })
 
         const interviewReport = await interviewReportModel.create({
             user: req.user.id,
-            resume: resumeContent.text,
+            resume: resumeText,
             selfDescription,
             jobDescription,
             ...interViewReportByAi

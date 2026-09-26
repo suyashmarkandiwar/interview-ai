@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+<button id="btn">Click me</button>
+<script>
+document.getElementById('btn').addEventListener('click', () => {
+    const htmlString = "<h1>Resume</h1><p>Test</p>";
+    const htmlWithPrint = htmlString + "<script>window.onload = () => { setTimeout(() => window.print(), 500); }</script>";
+    const blob = new Blob([htmlWithPrint], { type: 'text/html' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url, "_blank");
+});
+</script>
+</body>
+</html>
