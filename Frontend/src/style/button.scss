@@ -1,0 +1,36 @@
+.button{
+
+    border: none;
+    outline: none;
+    padding-inline: 1.5rem;
+    padding-block: 0.75rem;
+    border-radius: 1rem;
+    cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+
+    &.primary-button{
+        background-color: #e1034d;
+        color: white;
+    }
+
+    &:active{
+        transform: scale(0.9);
+    }
+}
+
+.logout-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background-color: transparent;
+    color: #e1034d;
+    border: 1px solid #e1034d;
+    z-index: 100;
+    font-weight: 600;
+    
+    &:hover {
+        background-color: #e1034d;
+        color: white;
+    }
+}

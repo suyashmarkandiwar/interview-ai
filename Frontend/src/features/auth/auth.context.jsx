@@ -1,10 +1,11 @@
 import { createContext, useState } from "react";
 
+
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(false) // at production state its true
+    const [loading, setLoading] = useState(true) // at production state its true
 
     return (
         <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>

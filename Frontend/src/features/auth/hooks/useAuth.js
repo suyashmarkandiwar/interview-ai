@@ -1,7 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../auth.context";
 import { login, register, logout, getMe } from "../services/auth.api";
-
 
 export const useAuth = () => {
     const context = useContext(AuthContext)
@@ -67,6 +66,20 @@ export const useAuth = () => {
             setLoading(false)
         }
     }
+
+    useEffect(() => {
+        const getAndSetUser = async () => {
+            try {
+                const data = await getMe() // checks if the user has a valid token in cookies
+                setUser(data.user)
+            } catch (err) {
+                setUser(null) // no valid session → user is not logged in
+            } finally {
+                setLoading(false) // always stop loading, whether success or fail
+            }
+        }
+        getAndSetUser()
+    }, [])
 
     return { user, loading, handleLogin, handleRegister, handleLogout, handleGetMe }
 

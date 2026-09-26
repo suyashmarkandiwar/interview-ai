@@ -3,6 +3,7 @@ const connectDB = require("./src/config/database.js");
 const app = require("./src/app");
 const PORT = process.env.PORT || 3000;
 
+
 connectDB();
 
 app.listen(PORT, () => {

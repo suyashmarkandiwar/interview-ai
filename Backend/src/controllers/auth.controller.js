@@ -21,6 +21,12 @@ async function registerUserController(req, res) {
 
     const isUserAlreadyExists = await userModel.findOne({
         $or: [{ username }, { email }]
+        //  It tells the database to look for a match if at least one of the conditions in the array is true.
+
+        // Because of JavaScript shorthand, it translates exactly to:
+        // [{ username: username }, { email: email }]
+
+        // Meaning: "Match if the database's username equals the provided username variable, OR the database's email equals the provided email variable.
     })
 
     if (isUserAlreadyExists) {
@@ -43,7 +49,7 @@ async function registerUserController(req, res) {
         { expiresIn: "1d" }
     )
 
-    res.cookie("token", token)
+    res.cookie("token", token, { httpOnly: true })
 
     return res.status(201).json({
         message: "User registered successfully",
@@ -89,7 +95,7 @@ async function loginUserController(req, res) {
         { expiresIn: "1d" }
     )
 
-    res.cookie("token", token)
+    res.cookie("token", token, { httpOnly: true })
 
     return res.status(200).json({
         message: "User logged in successfully",
@@ -137,6 +143,12 @@ async function logoutUserController(req, res) {
 async function getMeController(req, res) {
 
     const user = await userModel.findById(req.user.id);
+    if (!user) {
+        return res.status(404).json({
+            message: "User not found"
+        })
+    }
+
     return res.status(200).json({
         message: "User details fetched successfully",
         user: {
