@@ -1,6 +1,6 @@
 # GenAI Interview Preparation Platform
 
-**🔗 Live Demo:** [https://interview-ai.vercel.app](https://interview-ai.vercel.app)
+**🔗 Live Demo:** [https://skill-matrix-analyser.vercel.app/](https://skill-matrix-analyser.vercel.app/)
 
 A full-stack, AI-powered interview preparation platform that analyzes a candidate's resume and a target job description to generate a highly customized, day-by-day interview preparation roadmap. 
 
